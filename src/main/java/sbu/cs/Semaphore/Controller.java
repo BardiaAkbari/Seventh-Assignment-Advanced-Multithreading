@@ -1,5 +1,8 @@
 package sbu.cs.Semaphore;
 
+import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
+
 public class Controller {
 
     /**
@@ -16,18 +19,28 @@ public class Controller {
      lines of code, as long as you use a Semaphore to solve this problem.
      * Every time a thread accesses the resource, print its name and the system time.
      */
+    private static ArrayList<Operator> operators = new ArrayList<>();
+    public static void addToOperators(Operator operator){
+        operators.add(operator);
+    }
+    public static void main(String[] args) throws InterruptedException {
+        Semaphore semaphore = new Semaphore(2);
 
-    public static void main(String[] args) {
-        Operator operator1 = new Operator("operator1");
-        Operator operator2 = new Operator("operator2");
-        Operator operator3 = new Operator("operator3");
-        Operator operator4 = new Operator("operator4");
-        Operator operator5 = new Operator("operator5");
+
+        Operator operator1 = new Operator("operator1", semaphore);
+        Operator operator2 = new Operator("operator2", semaphore);
+        Operator operator3 = new Operator("operator3", semaphore);
+        Operator operator4 = new Operator("operator4", semaphore);
+        Operator operator5 = new Operator("operator5", semaphore);
 
         operator1.start();
         operator2.start();
         operator3.start();
         operator4.start();
         operator5.start();
+
+        for(Operator operator : operators){
+            operator.join();
+        }
     }
 }

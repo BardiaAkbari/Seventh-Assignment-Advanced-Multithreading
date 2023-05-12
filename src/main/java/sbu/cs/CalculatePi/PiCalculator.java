@@ -52,10 +52,10 @@ public class PiCalculator {
         bigDecimal = bigDecimal.add(value);
     }
 
-    public String calculate(int floatingPoint) {
-        ExecutorService executorService = Executors.newFixedThreadPool(6);;
+    public static String calculate(int floatingPoint) {
+        ExecutorService executorService = Executors.newFixedThreadPool(40);;
 
-        for(int i = 1; i <= 1000000; i++){
+        for(int i = 1; i <= 100000000; i++){
             MyClass myClass = new MyClass(i);
             executorService.execute(myClass);
         }
@@ -76,6 +76,6 @@ public class PiCalculator {
 
     public static void main(String[] args) {
         // Use the main function to test the code yourself
-//        System.out.println(calculate(8));
+        System.out.println(calculate(8));
     }
 }
